@@ -1,5 +1,11 @@
 #!/bin/bash
 
+##############################################################
+# Author : Ravi
+# Date   : 17-02-2024
+# S3.10 S3 buckets with versioining enabled should have lifecycle policies configured
+#
+##############################################################
 # Function to check if versioning is enabled for a given bucket
 check_versioning() {
     local bucket_name="$1"
