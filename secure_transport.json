@@ -1,0 +1,15 @@
+{
+    "Version": "2012-10-17",
+    "Id": "cc-secure-transport-bucket-policy",
+    "Statement": [
+      {
+        "Effect": "Deny",
+        "Principal": { "AWS": "*" },
+        "Action": "s3:*",
+        "Condition": {
+          "Bool": { "aws:SecureTransport": false }
+        },
+        "Resource":"arn:aws:s3:::cc-web-app-assets/*"
+      }
+    ]
+  }
