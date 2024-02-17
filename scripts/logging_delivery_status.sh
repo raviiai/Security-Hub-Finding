@@ -1,5 +1,11 @@
 #!/bin/bash
 
+##############################################################
+# Author : Ravi
+# Date   : 17-02-2024
+# Logging of delivery status should be enabled for notification messages sent to a topic
+#
+##############################################################
 # Set your AWS region
 AWS_REGION="us-east-1"
 
