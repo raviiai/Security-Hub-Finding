@@ -1,4 +1,11 @@
 #!/bin/bash
+##############################################################
+# Author : Ravi
+# Date   : 18-02-2024
+# SSM.1 EC2 instances should be managed by AWS Systems Manager
+#
+##############################################################
+
 
 region="us-east-1"
 # Fetch running instance IDs
