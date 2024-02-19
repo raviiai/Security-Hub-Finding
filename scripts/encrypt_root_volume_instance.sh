@@ -8,6 +8,7 @@
 ###############################################
 instance_id=$1 
 region="us-east-1"
+set -e
 ######### Part 1 section - starts here ##############
 # Stop instances
 echo "Stop instance"
