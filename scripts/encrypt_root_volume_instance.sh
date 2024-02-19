@@ -66,7 +66,7 @@ echo "Waiting for new volume creation to be completed"
 done
 
 echo "Attach newly encrypted volume"
-aws ec2 attach-volume --volume-id $new_encrypt_volume --instance-id $instance_id # --device /dev/sda1
+aws ec2 attach-volume --volume-id $new_encrypt_volume --instance-id $instance_id --device /dev/sda1
 
 while [ "$new_volume_state" != "in-use" ]
 do
