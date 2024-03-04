@@ -21,7 +21,7 @@ check_versioning() {
 # Function to configure lifecycle policy for a bucket
 configure_lifecycle_policy() {
     local bucket_name="$1"
-    aws s3api put-bucket-lifecycle-configuration --bucket "$bucket_name" --lifecycle-configuration '
+    aws s3api put-bucket-lifecycle-configuration --bucket "$bucket_name"  --region us-east-1 --lifecycle-configuration '
     {
         "Rules": [
             {
