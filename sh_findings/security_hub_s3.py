@@ -1,5 +1,6 @@
 import boto3
 from openpyxl import Workbook
+from datetime import datetime 
 
 securityhub = boto3.client('securityhub')
 s3 = boto3.resource('s3')
@@ -36,7 +37,7 @@ _sort = [
 
 wb = Workbook()
 ws = wb.active
-headers = ['Compliance Status', 'Severity', 'id', 'title', 'Account', 'ResourceType', 'ResourceId']
+headers = ['Compliance Status', 'Severity', 'Id', 'title', 'Account', 'ResourceType', 'ResourceId', 'Region', 'Updated']
 ws.append(headers)
 
 MAX_ITEMS = 100
@@ -56,11 +57,14 @@ for finding in findings:
     account_it = finding['AwsAccountId']
     resource_type = finding['Resources'][0]['Type']
     resource_id = finding['Resources'][0]['Id']
-
+    region = finding['Resources'][0]['Region']
+    updated = finding['UpdatedAt']
+    updated = datetime.strptime(updated, "%Y-%m-%dT%H:%M:%S.%fZ")
+    updated = updated.strftime("%Y-%m-%d %H:%M:%S")
     if resource_type=='AwsS3Bucket':
-        row = [compliance_status, severity, ids, title, account_it, resource_type, resource_id]
+        row = [compliance_status, severity, ids, title, account_it, resource_type, resource_id, region, updated]
         ws.append(row)
-        
+
 while 'NextToken' in result:
     result = securityhub.get_findings(
         Filters=_filter,
@@ -77,8 +81,12 @@ while 'NextToken' in result:
         account_it = finding['AwsAccountId']
         resource_type = finding['Resources'][0]['Type']
         resource_id = finding['Resources'][0]['Id']
+        region = finding['Resources'][0]['Region']
+        updated = finding['UpdatedAt']
+        updated = datetime.strptime(updated, "%Y-%m-%dT%H:%M:%S.%fZ")
+        updated = updated.strftime("%Y-%m-%d %H:%M:%S")
         if resource_type=='AwsS3Bucket':
-            row = [compliance_status, severity, ids, title, account_it, resource_type, resource_id]
+            row = [compliance_status, severity, ids, title, account_it, resource_type, resource_id, region, updated]
             ws.append(row)
 
 wb.save("s3.xlsx")
